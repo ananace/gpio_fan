@@ -1,0 +1,13 @@
+[Unit]
+Description=GPIO Fan daemon
+Wants=basic.target
+After=basic.target
+
+[Service]
+EnvironmentFile=-/etc/sysconfig/gpio_fan
+EnvironmentFile=-/etc/default/gpio_fan
+ExecStart=/usr/bin/gpio_fan $GPIO_FAN_OPTS
+KillMode=process
+
+[Install]
+WantedBy=default.target
