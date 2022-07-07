@@ -46,13 +46,14 @@ int main(int argc, char** argv)
         }
         else
         {
-            printf("Unknown argument %s\n", argv[i]);
+            fprintf(stderr, "Unknown argument %s\n", argv[i]);
             print_help(argv[0]);
             return 1;
         }
     }
 
-    printf("Starting GPIO fan handling on pin %d, for the range %.2fC - %.2fC every %d second(s).\n", fan_pin, min_temp, max_temp, interval);
+    fprintf(stdout, "Starting GPIO fan handling on pin %d, for the range %.2fC - %.2fC every %d second(s).\n", fan_pin, min_temp, max_temp, interval);
+    fflush(stdout);
 
     if (gpio_init(0) < 0)
         return -1;
@@ -100,7 +101,7 @@ float read_temperature()
 
 void print_help(const char* argv0)
 {
-    printf("Usage: %s [OPTIONS...]\n\n"
+    fprintf(stdout, "Usage: %s [OPTIONS...]\n\n"
             "Args:\n"
             "  -p --pin PIN      Set the GPIO pin to toggle\n"
             "  -n --interval SEC Set the delay between temperature checks (in seconds)\n"
@@ -109,4 +110,5 @@ void print_help(const char* argv0)
             "  -m --min MIN      Set turn-off point\n"
             "  -M --max MAX      Set turn-on point\n",
            argv0);
+    fflush(stdout);
 }
